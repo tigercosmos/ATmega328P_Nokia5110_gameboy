@@ -7,6 +7,7 @@ void print_hello()
     nokia_lcd_set_cursor(0, 40);
     nokia_lcd_write_string("By tigercosmos", 1);
     nokia_lcd_render();
+    _delay_ms(1500);
 }
 
 void print_menu(unsigned char cursor)
@@ -41,4 +42,21 @@ void print_menu(unsigned char cursor)
     nokia_lcd_set_cursor(0, 40);
     nokia_lcd_write_string("==Press CTRL==", 1);
     nokia_lcd_render();
+}
+
+void print_snake_hello()
+{
+    nokia_lcd_clear();
+    nokia_lcd_write_image(SNAKE_COVER);
+    nokia_lcd_render();
+    _delay_ms(1000);
+}
+
+void print_snake_update()
+{
+    nokia_lcd_clear();
+    snake_show_score();
+    snake_set_grids();
+    nokia_lcd_render();
+    _delay_ms(1000);
 }

@@ -40,7 +40,7 @@ void enter_game(unsigned char cur)
     }
     else if (cur == 1)
     {
-        enter_shoot();
+       // enter_shoot();
     }
     else
     {

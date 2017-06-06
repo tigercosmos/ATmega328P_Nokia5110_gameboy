@@ -85,4 +85,10 @@ void nokia_lcd_set_cursor(uint8_t x, uint8_t y);
  */
 void nokia_lcd_render(void);
 
+
+/*
+ * Set pixels from image array
+ */
+void nokia_lcd_write_image(const uint8_t *img);
+
 #endif

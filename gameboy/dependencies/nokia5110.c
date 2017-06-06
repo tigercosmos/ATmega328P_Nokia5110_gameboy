@@ -203,3 +203,11 @@ void nokia_lcd_render(void)
 	for (i = 0; i < 504; i++)
 		write_data(nokia_lcd.screen[i]);
 }
+
+void nokia_lcd_write_image(const uint8_t *img)
+{
+	for (register unsigned i = 0; i < 504; i++)
+	{
+		nokia_lcd.screen[i] = img[i];
+	}
+}
