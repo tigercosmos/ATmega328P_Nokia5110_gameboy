@@ -10,11 +10,14 @@ typedef struct Position
     unsigned char y;
 } Position;
 
+void snake_play();
 void enter_snake();
 void snake_init();
 void snake_show_score();
 void make_snake();
+void move();
 void snake_set_grids();
 uint8_t isFull();
-uint8_t isEmpty();
-void grow(Position *snake_body, Position current_position);
+void grow(Position pos);
+void snake_win();
+void snake_lose();

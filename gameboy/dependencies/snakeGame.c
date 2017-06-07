@@ -1,6 +1,8 @@
-#define MAX_QUEUE 255
+#define MAX_QUEUE 254
 
 Position snake_body[MAX_QUEUE];
+Position set_empty_grid = {.x = 87, .y = 47}; // set to boundary as empty
+Direction next_dir = {.dirX = -1, .dirY = 0};
 int front = 0, rear = 0;
 
 unsigned score = 0;
@@ -9,7 +11,7 @@ void enter_snake()
 {
     print_snake_hello();
     snake_init();
-    // snake_play();
+    snake_play();
 }
 
 void snake_init()
@@ -30,11 +32,11 @@ void snake_show_score()
 void make_snake()
 {
 
-    Position temp = {.x = 24, .y = 0};
+    Position pos = {.x = 48, .y = 24};
     for (register unsigned i = 0; i < 5; i++)
     {
-        temp.y = i;
-        grow(snake_body, temp);
+        pos.y += 1;
+        grow(pos);
     }
 }
 
@@ -42,8 +44,14 @@ void make_food()
 {
 }
 
-void sanke_play()
+void snake_play()
 {
+    // while(!collide){
+    while (1)
+    {
+        move();
+        print_snake_update();
+    }
 }
 
 void snake_set_grids()
@@ -67,24 +75,49 @@ void snake_set_grids()
 
 void move()
 {
+    /*
+    **  Delete grid as the snake tail
+    */
+    snake_body[front] = set_empty_grid;
+    front = (front + 1) % MAX_QUEUE;
+
+    /*
+    ** Push new grid as the snake head
+    */
+    Position next_grid = {
+        .x = snake_body[rear].x + next_dir.dirX,
+        .y = snake_body[rear].y + next_dir.dirY};
+
+    rear = (rear + 1) % MAX_QUEUE;
+    snake_body[rear] = next_grid;
 }
 
 uint8_t isFull()
 {
-    return rear == MAX_QUEUE && front == 0;
+    return ((rear + 1) % MAX_QUEUE) == front;
 }
 
-uint8_t isEmpty()
+void grow(Position pos)
 {
-    return front == rear;
-}
 
-void grow(Position *snake_body, Position current_position)
-{
     if (isFull())
     {
-        //snake_win();
+        snake_win();
         return;
     }
-    snake_body[rear++] = current_position;
+    rear = (rear + 1) % MAX_QUEUE;
+
+    snake_body[rear] = pos;
+}
+
+void snake_win()
+{
+    print_win();
+    enter_menu();
+}
+
+void snake_lose()
+{
+    print_lose();
+    enter_menu();
 }
