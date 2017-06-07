@@ -1,5 +1,8 @@
 #include <avr/io.h>
 #include <util/delay.h>
+#include <stdlib.h>
+#include <stdio.h>
+
 
 #include "./nokia5110.h"
 #include "./screen.h"
