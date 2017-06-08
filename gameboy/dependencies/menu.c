@@ -10,18 +10,18 @@ void enter_menu()
         {
             cursor -= 1;
             print_menu(cursor);
-            tone(0, 50);
+            tone(0);
         }
         if (isBtnDown() && check_cursor_boundary(cursor + 1))
         {
             cursor += 1;
             print_menu(cursor);
-            tone(0, 50);
+            tone(0);
         }
 
         if (isBtnCtrl())
         {
-            tone(0, 50);
+            tone(0);
             enter_game(cursor);
         }
     }

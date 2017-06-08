@@ -2,10 +2,10 @@
 
 Position snake_body[MAX_QUEUE];
 Position set_empty_grid = {.x = 87, .y = 47}; // set to boundary as empty
-Position next_grid = {.x = 0, .y = 0};
+Position next_grid;
 Position food_pos;
 
-Direction next_dir = {.dirX = -1, .dirY = 0};
+Direction next_dir;
 
 int front = 0, rear = 0;
 
@@ -25,6 +25,8 @@ void snake_init()
     score = 0;
     front = 0;
     rear = 0;
+    next_grid = set_empty_grid;
+    next_dir = (struct Direction) { .dirX = -1, .dirY = 0 };
     for (register unsigned i = 0; i < MAX_QUEUE; i++)
     {
         snake_body[i] = set_empty_grid;
@@ -71,26 +73,26 @@ void snake_play()
         if (isBtnUp())
         {
             next_dir = (struct Direction){.dirX = 0, .dirY = -1};
-            tone(0, 50);
+            tone(0);
         }
         if (isBtnDown())
         {
             next_dir = (struct Direction){.dirX = 0, .dirY = 1};
-            tone(0, 50);
+            tone(0);
         }
         if (isBtnRight())
         {
             next_dir = (struct Direction){.dirX = 1, .dirY = 0};
-            tone(0, 50);
+            tone(0);
         }
         if (isBtnLeft())
         {
             next_dir = (struct Direction){.dirX = -1, .dirY = 0};
-            tone(0, 50);
+            tone(0);
         }
         if (isBtnCtrl())
         {
-            tone(0, 50);
+            tone(0);
             enter_menu();
         }
 
@@ -101,6 +103,7 @@ void snake_play()
 
         if (eat())
         {
+            tone(5);
             grow(food_pos);
             make_food();
         }
@@ -216,11 +219,13 @@ void grow(Position pos)
 void snake_win()
 {
     print_win();
+    win_sound();
     enter_menu();
 }
 
 void snake_lose()
 {
     print_lose();
+    lose_sound();
     enter_menu();
 }

@@ -7,7 +7,6 @@ void print_hello()
     nokia_lcd_set_cursor(0, 40);
     nokia_lcd_write_string("By tigercosmos", 1);
     nokia_lcd_render();
-    _delay_ms(1500);
 }
 
 void print_menu(unsigned char cursor)
@@ -67,15 +66,13 @@ void print_win()
     snake_show_score();
     nokia_lcd_write_string("You win", 2);
     nokia_lcd_render();
-    _delay_ms(2000);
 }
 
 void print_lose()
 {
     nokia_lcd_clear();
     snake_show_score();
-    nokia_lcd_set_cursor(0, 15);
-    nokia_lcd_write_string("You lose", 2);
+    nokia_lcd_set_cursor(10, 15);
+    nokia_lcd_write_string("Lose!!", 2);
     nokia_lcd_render();
-    _delay_ms(2000);
 }
