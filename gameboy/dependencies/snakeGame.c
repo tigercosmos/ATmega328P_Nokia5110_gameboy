@@ -2,8 +2,11 @@
 
 Position snake_body[MAX_QUEUE];
 Position set_empty_grid = {.x = 87, .y = 47}; // set to boundary as empty
+Position next_grid = {.x = 0, .y = 0};
 Position food_pos;
+
 Direction next_dir = {.dirX = -1, .dirY = 0};
+
 int front = 0, rear = 0;
 
 unsigned score = 0;
@@ -17,8 +20,17 @@ void enter_snake()
 
 void snake_init()
 {
+    srand(BTN_CLICKS);
+    nokia_lcd_clear();
+    score = 0;
+    front = 0;
+    rear = 0;
+    for (register unsigned i = 0; i < MAX_QUEUE; i++)
+    {
+        snake_body[i] = set_empty_grid;
+    }
     make_snake();
-    // make_food();
+    make_food();
     print_snake_update();
 }
 
@@ -44,7 +56,8 @@ void make_snake()
 void make_food()
 {
     // random food, avoiding next to boundary
-    food_pos = {.x = rand() % / 82 + 2, .y = rand() % 35 + 12};
+    food_pos.x = rand() % 82 + 2;
+    food_pos.y = rand() % 35 + 12;
 }
 
 void snake_play()
@@ -52,9 +65,91 @@ void snake_play()
     // while(!collide){
     while (1)
     {
-        move();
+        /*
+        **  Buttons Control
+        */
+        if (isBtnUp())
+        {
+            next_dir = (struct Direction){.dirX = 0, .dirY = -1};
+            tone(0, 50);
+        }
+        if (isBtnDown())
+        {
+            next_dir = (struct Direction){.dirX = 0, .dirY = 1};
+            tone(0, 50);
+        }
+        if (isBtnRight())
+        {
+            next_dir = (struct Direction){.dirX = 1, .dirY = 0};
+            tone(0, 50);
+        }
+        if (isBtnLeft())
+        {
+            next_dir = (struct Direction){.dirX = -1, .dirY = 0};
+            tone(0, 50);
+        }
+        if (isBtnCtrl())
+        {
+            tone(0, 50);
+            enter_menu();
+        }
+
+        // Predict next position
+        next_grid = (struct Position){
+            .x = snake_body[rear].x + next_dir.dirX,
+            .y = snake_body[rear].y + next_dir.dirY};
+
+        if (eat())
+        {
+            grow(food_pos);
+            make_food();
+        }
+
+        if (!collide())
+        {
+            move();
+        }
+        else
+        {
+            snake_lose();
+        }
+
         print_snake_update();
     }
+}
+
+uint8_t eat()
+{
+    if (next_grid.x == food_pos.x && next_grid.y == food_pos.y)
+    {
+        score += 1;
+        return 1;
+    }
+    return 0;
+}
+
+uint8_t collide()
+{
+    // Collide boundary
+    if (next_grid.x == 0 || next_grid.x == 87)
+    {
+        return 1;
+    }
+    else if (next_grid.y == 10 || next_grid.y == 47)
+    {
+        return 1;
+    }
+
+    // Collide itself
+    for (register unsigned i = 0; i < MAX_QUEUE; i++)
+    {
+        if (snake_body[i].x == next_grid.x && snake_body[i].y == next_grid.y)
+        {
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 void snake_set_grids()
@@ -93,10 +188,6 @@ void move()
     /*
     ** Push new grid as the snake head
     */
-    Position next_grid = {
-        .x = snake_body[rear].x + next_dir.dirX,
-        .y = snake_body[rear].y + next_dir.dirY};
-
     rear = (rear + 1) % MAX_QUEUE;
     snake_body[rear] = next_grid;
 }
@@ -112,11 +203,14 @@ void grow(Position pos)
     if (isFull())
     {
         snake_win();
-        return;
     }
     rear = (rear + 1) % MAX_QUEUE;
-
     snake_body[rear] = pos;
+
+    // Grow at head, so need to refresh next grid
+    next_grid = (struct Position){
+        .x = snake_body[rear].x + next_dir.dirX,
+        .y = snake_body[rear].y + next_dir.dirY};
 }
 
 void snake_win()
