@@ -58,7 +58,6 @@ void print_snake_update()
     snake_show_score();
     snake_set_grids();
     nokia_lcd_render();
-    _delay_ms(5);
 }
 
 void print_win()
@@ -66,7 +65,7 @@ void print_win()
     nokia_lcd_clear();
     nokia_lcd_set_cursor(0, 15);
     snake_show_score();
-    nokia_lcd_write_string("You Win", 2);
+    nokia_lcd_write_string("You win", 2);
     nokia_lcd_render();
     _delay_ms(2000);
 }
@@ -76,7 +75,7 @@ void print_lose()
     nokia_lcd_clear();
     snake_show_score();
     nokia_lcd_set_cursor(0, 15);
-    nokia_lcd_write_string("You Lose", 2);
+    nokia_lcd_write_string("You lose", 2);
     nokia_lcd_render();
     _delay_ms(2000);
 }
