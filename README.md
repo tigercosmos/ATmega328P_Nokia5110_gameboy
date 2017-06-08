@@ -1,14 +1,14 @@
 # ATmega328P Nokia5110 Gameboy
 DIY Handheld Game Console Made With ATmega328P and Nokia5110 LCD
 
-## Photo 
-![](https://github.com/tigercosmos/ATmega328P_Nokia5110_gameboy/raw/master/assets/device.jpg)
+## Build Project
+```
+git clone https://github.com/tigercosmos/ATmega328P_Nokia5110_gameboy.git
+```
+Open project via `AtmelStudio 7` and click `Build solution`.
 
-## Vedio 
-You can see the DEMO via the [LINK](https://www.dropbox.com/s/jr5x41fuszlm30k/ATmega328P_Nokia5110_gameboy.mov?dl=0).
-
-## Circuit Diagram
-![](https://raw.githubusercontent.com/tigercosmos/ATmega328P_Nokia5110_gameboy/master/assets/circuit_diagram.png)
+## Firmware
+Program the `hex` code into Atmega328P via `AVRDUDESS 2.4`
 
 ## Enviroment
 Sofeware: 
@@ -26,6 +26,17 @@ Hardware:
 - Resistance
 - Wires
 - 220u Capacitance
+
+## Photo 
+![](https://github.com/tigercosmos/ATmega328P_Nokia5110_gameboy/raw/master/assets/device.jpg)
+
+## Vedio 
+You can see the DEMO via the [LINK](https://www.dropbox.com/s/jr5x41fuszlm30k/ATmega328P_Nokia5110_gameboy.mov?dl=0).
+
+## Circuit Diagram
+![](https://raw.githubusercontent.com/tigercosmos/ATmega328P_Nokia5110_gameboy/master/assets/circuit_diagram.png)
+
+## 
 
 ## Tools
 The `tools` folder includes `FastLCD` software which can help you build image btyes easier.
