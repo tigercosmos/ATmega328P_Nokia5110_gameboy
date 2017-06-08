@@ -1,5 +1,13 @@
 # ATmega328P Nokia5110 Gameboy
-DIY Handheld Game Console Made With ATmega328P and Nokia5110 LCD
+DIY Handheld Game Console Made With ATmega328P and Nokia5110 LCD.
+
+## Game Process
+- welcome
+- menu
+    - snake game
+        - win the game and turn back to the menu
+        - lose the game and turn back to the menu
+    - shoot game (not finished yet)
 
 ## Build Project
 ```
