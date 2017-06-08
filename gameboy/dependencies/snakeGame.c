@@ -2,6 +2,7 @@
 
 Position snake_body[MAX_QUEUE];
 Position set_empty_grid = {.x = 87, .y = 47}; // set to boundary as empty
+Position food_pos;
 Direction next_dir = {.dirX = -1, .dirY = 0};
 int front = 0, rear = 0;
 
@@ -42,6 +43,8 @@ void make_snake()
 
 void make_food()
 {
+    // random food, avoiding next to boundary
+    food_pos = {.x = rand() % / 82 + 2, .y = rand() % 35 + 12};
 }
 
 void snake_play()
@@ -57,6 +60,7 @@ void snake_play()
 void snake_set_grids()
 {
     register unsigned i;
+    // Boundary
     for (i = 0; i < 84; i++)
     {
         nokia_lcd_set_pixel(i, 10, 1);
@@ -67,10 +71,15 @@ void snake_set_grids()
         nokia_lcd_set_pixel(0, i, 1);
         nokia_lcd_set_pixel(83, i, 1);
     }
+
+    // Snake
     for (i = 0; i < MAX_QUEUE; i++)
     {
         nokia_lcd_set_pixel(snake_body[i].x, snake_body[i].y, 1);
     }
+
+    // Food
+    nokia_lcd_set_pixel(food_pos.x, food_pos.y, 1);
 }
 
 void move()
