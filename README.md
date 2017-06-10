@@ -43,8 +43,21 @@ You can see the DEMO via the [LINK](https://www.dropbox.com/s/jr5x41fuszlm30k/AT
 
 ## Circuit Diagram
 ![](https://raw.githubusercontent.com/tigercosmos/ATmega328P_Nokia5110_gameboy/master/assets/circuit_diagram.png)
-
-## 
+### Nokia 5110
+- SCE PB1
+- RST PB2
+- DC PB3
+- DIN PB4
+- CLK PB5
+### Buzz
+- PC5
+### Buttons
+- RIGHT PD5
+- DOWN PD4
+- UP PD3
+- LEFT PD2
+- FIRE PD6
+- CTRL PD7
 
 ## Tools
 The `tools` folder includes `FastLCD` software which can help you build image btyes easier.
